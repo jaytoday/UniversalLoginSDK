@@ -7,7 +7,6 @@ import ENSService from '../../integration/ethereum/ensService';
 import bodyParser from 'body-parser';
 import {Wallet, providers} from 'ethers';
 import cors from 'cors';
-import AuthorisationStore from '../../integration/sql/services/AuthorisationStore';
 import {EventEmitter} from 'fbemitter';
 import useragent from 'express-useragent';
 import {getKnex} from '../../core/utils/knexUtils';
@@ -18,7 +17,9 @@ import MessageHandler from '../../core/services/MessageHandler';
 import MessageQueueStore from '../../integration/sql/services/MessageQueueSQLStore';
 import errorHandler from '../middlewares/errorHandler';
 import PendingMessagesSQLStore from '../../integration/sql/services/PendingMessagesSQLStore';
-import AuthorisationService from '../../integration/ethereum/services/AuthorisationService';
+import AuthorisationService from '../../core/services/AuthorisationService';
+import AuthorisationStore from '../../integration/sql/services/AuthorisationStore';
+import WalletMasterContractService from '../../integration/ethereum/services/WalletMasterContractService';
 
 const defaultPort = '3311';
 
@@ -36,6 +37,7 @@ class Relayer {
   private ensService: ENSService = {} as ENSService;
   private authorisationStore: AuthorisationStore = {} as AuthorisationStore;
   private authorisationService: AuthorisationService = {} as AuthorisationService;
+  private walletMasterContractService: WalletMasterContractService = {} as WalletMasterContractService;
   private walletContractService: WalletService = {} as WalletService;
   private messageQueueStore: MessageQueueStore = {} as MessageQueueStore;
   private messageHandler: MessageHandler = {} as MessageHandler;
@@ -67,7 +69,8 @@ class Relayer {
     }));
     this.ensService = new ENSService(this.config.chainSpec.ensAddress, this.config.ensRegistrars, this.provider);
     this.authorisationStore = new AuthorisationStore(this.database);
-    this.authorisationService = new AuthorisationService(this.provider);
+    this.walletMasterContractService = new WalletMasterContractService(this.provider);
+    this.authorisationService = new AuthorisationService(this.authorisationStore, this.walletMasterContractService);
     this.walletContractService = new WalletService(this.wallet, this.config, this.ensService, this.hooks);
     this.pendingMessagesStore = new PendingMessagesSQLStore(this.database);
     this.messageQueueStore = new MessageQueueStore(this.database);
