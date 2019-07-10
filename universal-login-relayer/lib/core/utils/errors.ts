@@ -1,4 +1,4 @@
-type ErrorType = 'NotFound' | 'StatusNotFound' | 'InvalidENSDomain' |  'PaymentError' | 'NotEnoughGas' | 'NotEnoughBalance' | 'InvalidExecution' | 'InvalidProxy' | 'InvalidSignature' | 'DuplicatedSignature' | 'DuplicatedExecution' | 'NotEnoughSignatures' | 'InvalidTransaction' | 'InvalidHexData' | 'DuplicatedEnsName' | 'UnauthorisedAddress';
+type ErrorType = 'NotFound' | 'StatusNotFound' | 'InvalidENSDomain' |  'PaymentError' | 'NotEnoughGas' | 'NotEnoughBalance' | 'InvalidExecution' | 'InvalidProxy' | 'InvalidSignature' | 'DuplicatedSignature' | 'DuplicatedExecution' | 'NotEnoughSignatures' | 'InvalidTransaction' | 'InvalidHexData' | 'DuplicatedEnsName' | 'UnauthorisedAddress' | 'AuthorisationKeyNotfound';
 
 export class RelayerError extends Error {
   errorType : ErrorType;
@@ -81,6 +81,13 @@ export class NotFound extends RelayerError {
     super(message, errorType);
     this.errorType = errorType;
     Object.setPrototypeOf(this, NotFound.prototype);
+  }
+}
+
+export class AuthorisationKeyNotfound extends NotFound {
+  constructor (hash: string) {
+    super(`Could not find key ${hash} to authorise` , 'AuthorisationKeyNotfound');
+    Object.setPrototypeOf(this, AuthorisationKeyNotfound.prototype);
   }
 }
 
