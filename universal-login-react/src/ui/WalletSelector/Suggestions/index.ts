@@ -1,0 +1,1 @@
+export {SuggestionComponent} from './SuggestionComponent';

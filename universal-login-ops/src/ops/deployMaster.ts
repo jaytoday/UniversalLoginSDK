@@ -1,19 +1,19 @@
-import WalletMaster from '@universal-login/contracts/build/WalletMaster.json';
-import WalletMasterWithRefund from '@universal-login/contracts/build/WalletMasterWithRefund.json';
 import {Wallet, utils} from 'ethers';
-import {deployContractAndWait} from '@universal-login/commons';
+import {deployContractAndWait, TransactionOverrides} from '@unilogin/commons';
+import {beta2, gnosisSafe} from '@unilogin/contracts';
+import {CommandOverrides} from '../cli/connectAndExecute';
+import {getTransactionOverrides} from '../utils/getTransactionOverrides';
 
-
-export default async function deployMasterContract(wallet: Wallet) {
+export default async function deployMasterContract(wallet: Wallet, overrides: CommandOverrides) {
   console.log('Deploying wallet master contract...');
-  const overrides = {gasLimit: utils.bigNumberify(5000000)};
-  const contractAddress = await deployContractAndWait(wallet, WalletMaster, [], overrides);
+  const transactionOverrides: TransactionOverrides = {...getTransactionOverrides(overrides), gasLimit: utils.bigNumberify(5000000)};
+  const contractAddress = await deployContractAndWait(wallet, beta2.WalletContract as any, [], transactionOverrides);
   console.log(`Wallet master contract address: ${contractAddress}`);
 }
 
-export async function deployMasterContractWithRefund(wallet: Wallet) {
-  console.log(`Deploying wallet master with refund contract...`);
-  const overrides = {gasLimit: utils.bigNumberify(5000000)};
-  const contractAddress = await deployContractAndWait(wallet, WalletMasterWithRefund, [], overrides);
-  console.log(`Wallet master with refund contract address: ${contractAddress}`);
+export async function deployGnosisSafe(wallet: Wallet, overrides: CommandOverrides) {
+  console.log('Deploying Gnosis Safe contract...');
+  const transactionOverrides: TransactionOverrides = {...getTransactionOverrides(overrides), gasLimit: utils.bigNumberify(7000000)};
+  const contractAddress = await deployContractAndWait(wallet, gnosisSafe.GnosisSafe as any, [], transactionOverrides);
+  console.log(`Gnosis Safe contract address: ${contractAddress}`);
 }

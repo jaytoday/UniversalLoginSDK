@@ -4,35 +4,178 @@
 
 html
   overflow-x: hidden
+  height: 100%
 
 body
   overflow-x: hidden
   font-family: 'Poppins', sans-serif
   background: #fafbfd
+  height: 100%
 
 button
   font-family: 'Poppins', sans-serif
-  
+
 input
   border: none
 
-textarea:focus,
-input:focus
-  border: 1px solid #0FB989
-  outline: none
-  
+body > div
+  display: flex
+  flex-direction: column
+  height: 100%
+
+.container
+  max-width: 1230px
+  width: 100%
+  padding: 15px
+  margin: 0 auto
+
 .row
   display: flex
 
+.justify-content-center
+  justify-content: center
+
 .align-items-center
   align-items: center
-  
+
+.box-wrapper
+  display: flex
+  justify-content: center
+  align-items: center
+  flex: 1
+  padding: 15px
+
+  +media(s, 170px)
+    display: flex
+    flex-direction: column
+    flex: 1
+    padding: 0
+
+  & > .box
+    @media only screen and (max-width: 770px)
+      display: flex
+      flex-direction: column
+      flex: 1
+
 .box
-  border-radius: 5px
+  max-width: 800px
+  width: 100%
   background: #FFFFFF
-  box-shadow: 0 2px 4px 0 rgba(208,209,217,0.25)
+  box-shadow: 0 2px 28px 0 rgba(40,42,42,0.27)
+  display: flex
+  flex-direction: column
+  min-height: 595px
+
+  @media only screen and (max-width: 770px)
+    min-height: 100%
+
+  .modal-success-btn
+    display: flex
+    justify-content: center
+    align-items: center
+    max-width: 200px
+    margin-top: auto
+    margin-bottom: 30px
+
+    @media only screen and (max-width: 770px)
+      max-width: 330px
+
+  .modal-avatar-succes
+    display: block
+    width: 100px
+    height: 100px
+    margin: 38px auto 42px
+
+    @media only screen and (max-width: 770px)
+      margin: 30px auto 20px
+
+
+.box-header
+  padding: 22px 25px
+  text-align: center
+  background: #ffffff
+
+.box-title
+  font-size: 20px
+  color: #31405E
+  font-weight: 500
+
+.box-content
+  display: flex
+  flex-direction: column
+  align-items: center
+  flex: 1
+  background: #fafafa
+  padding: 0 15px
+
+  .created-account-hash
+    opacity: 0.7
+    font-size: 14px
+    color: #31405E
+    word-break: break-all
+    margin: 15px 0
+
+  .created-account-label
+    margin-bottom: 5px
+    opacity: 0.7
+    font-weight: 600
+    line-height: 130%
+    font-size: 16px
+    color: #31405E
+
+  .congratulation-text
+    text-align: center
+    line-height: 130%
+    color: #31405E
+    margin-bottom: 15px
+
+.box-text
+  font-size: 16px
+  color: #A4A8B4
+  letter-spacing: -0.09px
+  text-align: center
+  line-height: 24px
 
 .link
   display: flex
   justify-content: center
   align-items: center
+
+.unilogin-component-info-text
+  position: relative
+  padding-left: 33px
+  font-size: 16px
+  color: #31405E
+  line-height: 24px
+
+.unilogin-component-info-text::before
+  content: ''
+  position: absolute
+  top: 34px
+  left: 0
+  width: 18px
+  height: 18px
+  background: url('./../assets/icons/info.svg') center no-repeat
+
+.modal-wrapper
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.modal
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.universal-login-modal
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.transfer-modal
+  display: flex
+  flex-direction: column
+  flex: 1
+
+  .footer-buttons-row
+    grid-template-columns: 1fr

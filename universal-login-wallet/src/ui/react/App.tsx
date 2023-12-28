@@ -1,73 +1,28 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import HomeScreen from './Home/HomeScreen';
-import TransferringFundsScreen from './Login/TransferringFundsScreen';
 import NotFound from './NotFound';
-import Login from './Login/Login';
-import {PrivateRoute} from './PrivateRoute';
-import NotificationsScreen from './Notifications/NotificationsScreen';
-import ApproveScreen from './Login/ApproveScreen';
-import RecoveryScreen from './Login/RecoveryScreen';
-import SettingsScreen from './Settings/SettingsScreen';
+import {WalletRoute} from './WalletRoute';
 import {useServices} from '../hooks';
+import {WelcomeScreen} from './Home/WelcomeScreen';
+import {TermsAndConditionsScreen} from './Home/TermsAndConditionsScreen';
+import {PrivacyPolicy} from './Home/PrivacyPolicy';
+import {Wallet} from './Wallet';
+import {OnboardingRoutes} from './OnboardingRoutes';
 
 const App = () => {
   const {walletService} = useServices();
-  const authorized = walletService.isAuthorized();
 
-  return(
-      <Switch>
-        <Route
-          exact
-          path="/login"
-          render={props =>
-              <Login
-                {...props}
-              />
-          }
-        />
-        <Route
-          exact
-          path="/approve"
-          render={() => <ApproveScreen />}
-        />
-        <Route
-          exact
-          path="/recovery"
-          render={() => <RecoveryScreen />}
-        />
-        <PrivateRoute
-          authorized={authorized}
-          exact
-          path="/"
-          render={
-            () =>
-            <HomeScreen/>
-          }
-        />
-        <PrivateRoute
-          path="/transferring"
-          authorized={authorized}
-          render={
-            () =>
-            <TransferringFundsScreen/>
-          }
-        />
-        <PrivateRoute
-          path="/notifications"
-          authorized={authorized}
-          render={
-            () =>
-            <NotificationsScreen />
-          }
-        />
-        <PrivateRoute
-          path="/settings"
-          authorized={authorized}
-          render={() => <SettingsScreen />}
-        />
-        <Route component={NotFound}/>
-      </Switch>
+  return (
+    <Switch>
+      <WalletRoute exact walletService={walletService} path="/welcome" component={WelcomeScreen} />
+      <WalletRoute exact walletService={walletService} path="/terms" component={TermsAndConditionsScreen} />
+      <WalletRoute exact walletService={walletService} path="/privacy" component={PrivacyPolicy} />
+      <WalletRoute walletService={walletService} path="/dashboard" component={HomeScreen} />
+      <WalletRoute walletService={walletService} path="/debugStorage" component={Wallet} />
+      <OnboardingRoutes walletService={walletService} />
+      <WalletRoute walletService={walletService} component={NotFound} />
+    </Switch>
   );
 };
 

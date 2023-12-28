@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "dist",
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": [
+    "shims",
+    "src",
+    "test"
+  ]
+}

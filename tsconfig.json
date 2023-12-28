@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "esModuleInterop": true,
     "lib": [
       "esnext",
@@ -8,12 +8,22 @@
     ],
     "module": "commonjs",
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
+    "declaration": true,
+    "sourceMap": true,
+    "declarationMap": true,
+    "target": "es5",
+    "moduleResolution": "node"
   },
   "exclude": [
     "**/build",
-    "**/dist"
+    "**/dist",
+    "@unilogin/commons/src**",
+    "@unilogin/relayer/src**",
+    "@unilogin/sdk/src**",
+    "@unilogin/react/src**",
+    "@unilogin/ops/src**"
   ]
 }

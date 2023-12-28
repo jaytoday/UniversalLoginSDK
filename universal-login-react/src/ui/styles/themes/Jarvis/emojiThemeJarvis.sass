@@ -1,0 +1,231 @@
+@import ../../helpers/breakpoints
+
+.unilogin-component-emoji.unilogin-theme-jarvis
+  display: flex
+  justify-content: center
+  width: 100%
+
+  ul
+    display: flex
+    list-style: none
+    flex-wrap: wrap
+    align-items: center
+    justify-content: center
+
+  #notifications
+    flex: 1
+
+  #emojis
+    display: flex
+    flex-direction: column
+    flex: 1
+
+  .approve-device
+    padding: 50px 0 0
+    width: 100%
+
+    +media(s, 168px)
+      padding-top: 40px
+
+  .connection-device-status
+    margin: 0 auto
+    color: #000
+    padding: 150px 0
+    text-align: center
+
+  .emoji-placeholders-container
+    width: 100%
+
+  .approve-device-form
+    padding-bottom: 40px
+    display: flex
+    flex-direction: column
+    flex: 1
+
+    @media only screen and (max-width: 767px)
+      margin: unset
+      margin: 0 12px
+
+  .approve-device-title
+    font-weight: 700
+    margin: 0 0 20px
+    text-align: center
+    color: #31405E
+
+  .approve-device-text
+    margin: 0 auto 35px
+    line-height: 20px
+    color: #657086
+    text-align: center
+
+  .emoji-item
+    background: #ffffff
+    border-radius: 2px
+    border: 1px solid #C7C7D4
+    border-radius: 2px
+
+  .emoji-category-nature::before
+    background: url('../../../assets/jarvis/nature.svg') center no-repeat
+    background-size: contain
+
+  .emoji-category-food::before
+    background: url('../../../assets/jarvis/food.svg') center no-repeat
+    background-size: contain
+
+  .emoji-category-activities::before
+    background: url('../../../assets/jarvis/activities.svg') center no-repeat
+    background-size: contain
+
+  .emoji-category-shapes::before
+    background: url('../../../assets/jarvis/shapes.svg') center no-repeat
+    background-size: contain
+
+  .emoji-category-emojis::before
+    background: url('../../../assets/jarvis/emojis.svg') center no-repeat
+    background-size: contain
+
+  .emoji-category-item.active
+    border-color: #0FB989
+
+    +media(s, 168px)
+      border-color: #2C3E62
+
+  .emoji-keyboard-prev
+    margin-right: 10px
+    transform: rotate(0)
+
+  .emoji-keyboard-next
+    margin-left: 10px
+    transform: rotate(180deg)
+
+  .emoji-keyboard-arrow-button
+    background: transparent url('../../../assets/jarvis/angle-left-dark.svg') center no-repeat
+    border: 1px solid #969fb1
+
+  .emoji-keyboard-button:focus
+    outline: none
+    border: 1px solid rgba(154, 156, 167, 0.3)
+
+  .emoji-keyboard-color-row
+    box-shadow: 0 2px 25px 0 rgba(17,2,54,0.90)
+
+  .emoji-form-reject
+    max-width: 500px
+    width: 100%
+    height: 50px
+    background: #FFFFFF
+    border: 1px solid #C9C9D7
+    font-size: 16px
+    color: #AFB2BD
+    letter-spacing: -0.09px
+    text-align: center
+
+  .emoji-form-loader
+    padding: 140px 0
+
+  .emoji-form-title
+    margin: 0 0 55px
+    text-align: center
+    color: #31405E
+
+  .emoji-fakes-list
+    max-width: 808px
+    margin: 0 auto 0
+    padding-top: 32px
+    border-top: 1px solid #eaedfd
+    width: 100%
+
+  .emoji-keyboard
+    padding: 0 30px
+
+    +media(s)
+      padding: 0
+
+  .connect-emoji
+    padding: 0
+    background: #FAFBFD
+    width: 100%
+
+  .connect-emoji-content
+    padding: 25px
+
+  .connect-emoji-title
+    padding: 20px 35px
+    margin: 0
+    background: #fff
+    font-weight: 700
+    font-size: 20px
+    line-height: 26px
+    color: #31405E
+    text-align: left
+
+  .connect-emoji-text
+    position: relative
+    max-width: 425px
+    padding-top: 168px
+    color: #A4A8B4
+    padding-top: 168px
+    margin-bottom: 25px
+
+  .connect-emoji-warning
+    top: 50px
+    color: #000000
+
+  .connect-emoji-text::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 50%
+    transform: translateX(-50%)
+    width: 141px
+    height: 144px
+    background: url('../../../assets/jarvis/vault.png') center no-repeat
+    background-size: contain
+
+  .cancel-emoji-btn
+    max-width: 500px
+    width: 100%
+    height: 50px
+    margin: 150px auto 0
+    background: #FFFFFF
+    border: 1px solid #C9C9D7
+    font-size: 16px
+    line-height: 21px
+    color: #AFB2BD
+
+  .correct-input-footer
+    margin-top: 80px
+
+    +media(s, 168px)
+      margin-top: 0px
+
+  .emoji-input-chosen-invalid
+    color: red
+
+    +media(s, 168px)
+      top: 42%
+
+  .emoji-keyboard-batch
+
+    +media(s)
+      padding: 0
+
+    .emoji-keyboard-button i
+      color: #2C3E62 !important
+
+  .emoji-placeholders-list
+    .emoji-item-empty
+      border: 1px solid #2EC9F5
+
+  .correct-input-title
+    font-weight: 700
+    font-size: 20px
+    line-height: 24px
+    text-align: center
+    color: #31405E
+
+    @media only screen and (max-width: 600)
+      margin: 0 auto 54px
+
+  .correct-input-confirmation-text
+    margin-top: 1.5rem

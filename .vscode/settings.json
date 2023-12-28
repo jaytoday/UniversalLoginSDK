@@ -1,0 +1,22 @@
+{
+  "plantuml.diagramsRoot": "docs/modeling/src",
+  "plantuml.exportOutDir": "docs/modeling/img",
+  "plantuml.exportSubFolder": false,
+  "plantuml.exportFormat": "png",
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.trimTrailingWhitespace": true,
+  "search.exclude": {
+    "**/.cache": true,
+    "**/build": true,
+    "**/dist": true
+  },
+  "[solidity]": {
+    "editor.tabSize": 4,
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

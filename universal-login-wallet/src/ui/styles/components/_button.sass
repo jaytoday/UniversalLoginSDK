@@ -8,11 +8,11 @@
 .btn[disabled]
   background: #747474
   color: #FFFFFF
-  
+
 .btn[disabled]:hover
   background: #747474
   cursor: not-allowed
-  
+
 .btn-primary
   color: #FFFFFF
   background: #0FB989
@@ -21,18 +21,18 @@
   background: darken(#0FB989, 2%)
 .btn-primary:active
   background: darken(#0FB989, 5%)
-  
+
 .btn-secondary
   color: #0FB989
   border: 1px solid #0FB989
-  
+
 .btn-confirm
   height: 40px
   padding: 0 33px
-  
+
 .btn-fullwidth
   width: 100%
-  
+
 .btn-text
   font-weight: 500
   font-size: 14px
@@ -46,7 +46,7 @@
 .btn-add-text
   position: relative
   padding-left: 31px
-  
+
 .btn-add-text::before
   content: ''
   position: absolute
@@ -57,18 +57,18 @@
   transform: translateY(-50%)
   background: url('./../assets/icons/add.svg') no-repeat center
   background-size: contain
-  
+
 .btn-send
   width: 165px
   margin-left: 20px
 
   +media(s, 168px)
     margin: 0
-  
+
 .btn-send-text
   position: relative
   padding-left: 33px
-  
+
 .btn-send-text::before
   content: ''
   position: absolute
@@ -87,3 +87,41 @@
     max-width: 311px
     margin: 0 auto 20px
     width: 100%
+
+.button-primary[disabled],
+.button-secondary[disabled],
+  cursor: not-allowed
+  background: #DBDBE4
+  border: none
+  color: #FFFFFF
+
+.button-primary
+  width: 100%
+  height: 50px
+  display: flex
+  justify-content: center
+  align-items: center
+  max-width: 500px
+  margin: 0 auto
+  font-weight: 500
+  font-size: 14px
+  color: #31405E
+  letter-spacing: -0.08px
+  text-align: center
+  background-image: linear-gradient(-34deg, #0FB1EF 0%, #55FD77 50%)
+
+.button-secondary
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  max-width: 500px
+  margin: 0 auto
+  height: 50px
+  background: #FFFFFF
+  border: 1px solid #C9C9D7
+  font-weight: 500
+  font-size: 16px
+  color: #AFB2BD
+  letter-spacing: -0.09px
+  text-align: center

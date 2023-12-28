@@ -1,0 +1,78 @@
+.unilogin-theme-unilogin.unilogin-component-modal-wrapper
+  max-width: 770px
+  min-width: 770px
+  margin: 0 auto
+  justify-content: center
+
+  @media only screen and (orientation: landscape) and (max-height: 720px)
+    height: 100vh
+    justify-content: unset
+
+  @media only screen and (max-width: 770px)
+    min-width: 100vw
+    height: 100vh
+    padding: 0
+
+  @media only screen and (max-width: 600px)
+    min-width: 100%
+
+  input
+    @media only screen and (max-width: 600px)
+      font-size: 16px !important
+
+.unilogin-theme-unilogin
+  iframe
+    height: 100%
+    width: 100%
+
+  .unilogin-component-modal
+    overflow: auto
+    min-height: 670px
+
+    @media only screen and (orientation: landscape) and (max-height: 720px)
+      min-height: unset
+
+    @media only screen and (max-height: 700px) and (max-width: 770px)
+      height: 100vh
+
+    @media only screen and (max-width: 600px)
+      border-radius: unset
+      background: #fff
+      min-height: unset
+
+.unilogin-theme-unilogin .unilogin-component-modal-close-btn
+  position: absolute
+  display: block
+  width: 24px
+  height: 24px
+  border-radius: 50%
+  border: 1px solid rgba(67, 157, 176, 0.4)
+  background: none
+  cursor: pointer
+  right: .8rem
+  top: .8rem
+
+  &::before
+    content: ''
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%) rotate(45deg)
+    width: 1px
+    height: 11px
+    background-color: #7D7C9C
+
+  &::after
+    content: ''
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%) rotate(135deg)
+    width: 1px
+    height: 11px
+    background-color: #7D7C9C
+
+.unilogin-theme-unilogin
+  input:focus, textarea:focus, button:focus
+    outline: none
+    box-shadow: 0px 10px 40px rgba(0, 131, 188, 0.12)
