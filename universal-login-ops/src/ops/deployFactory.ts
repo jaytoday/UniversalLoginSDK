@@ -1,26 +1,38 @@
 import {Wallet, providers} from 'ethers';
-import {deployContractAndWait} from '@universal-login/commons';
-import Factory from '@universal-login/contracts/build/ProxyCounterfactualFactory.json';
-import ProxyContract from '@universal-login/contracts/build/Proxy.json';
-import {getDeployData} from '@universal-login/contracts';
-import {connect} from '../cli/connectAndExecute';
+import {deployContractAndWait} from '@unilogin/commons';
+import {beta2, gnosisSafe} from '@unilogin/contracts';
+import {connectToEthereumNode, CommandOverrides} from '../cli/connectAndExecute';
+import {getTransactionOverrides} from '../utils/getTransactionOverrides';
 
-export type ConnectAndDeployFactory = {
+export type DeployGnosisFactoryArgs = {
   nodeUrl: string;
   privateKey: string;
-  walletMasterAddress: string;
   provider?: providers.Provider;
+  gasPrice?: string;
+  nonce?: string;
 };
 
-export async function connectAndDeployFactory({nodeUrl, privateKey, provider, walletMasterAddress}: ConnectAndDeployFactory) {
-  const {wallet} = connect(nodeUrl, privateKey, provider);
-  await deployFactory(wallet, walletMasterAddress);
+export interface DeployBeta2FactoryArgs extends DeployGnosisFactoryArgs {
+  walletContractAddress: string;
+};
+
+export async function connectAndDeployBeta2Factory(argv: DeployBeta2FactoryArgs) {
+  const {wallet} = connectToEthereumNode(argv.nodeUrl, argv.privateKey, argv.provider);
+  await deployBeta2Factory(wallet, argv);
 }
 
-export default async function deployFactory(wallet: Wallet, walletMasterAddress: string): Promise<string> {
-  const initData = getDeployData(ProxyContract, [walletMasterAddress, '0x0']);
+export default async function deployBeta2Factory(wallet: Wallet, overrides: DeployBeta2FactoryArgs): Promise<string> {
   console.log('Deploying factory contract...');
-  const contractAddress = await deployContractAndWait(wallet, Factory, [initData]);
+  const transactionOverrides = getTransactionOverrides(overrides);
+  const contractAddress = await deployContractAndWait(wallet, beta2.WalletProxyFactory, [overrides.walletContractAddress], transactionOverrides);
+  console.log(`Factory contract address: ${contractAddress}`);
+  return contractAddress;
+}
+
+export async function deployGnosisFactory(wallet: Wallet, givenTransactionOverrides: DeployGnosisFactoryArgs): Promise<string> {
+  console.log('Deploying factory contract...');
+  const transactionOverrides = getTransactionOverrides(givenTransactionOverrides as CommandOverrides);
+  const contractAddress = await deployContractAndWait(wallet, gnosisSafe.ProxyFactory, [], transactionOverrides);
   console.log(`Factory contract address: ${contractAddress}`);
   return contractAddress;
 }

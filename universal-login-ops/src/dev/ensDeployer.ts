@@ -2,17 +2,17 @@ import fs from 'fs';
 import {providers, Wallet} from 'ethers';
 import {defaultAccounts} from 'ethereum-waffle';
 const ENSBuilder = require('ens-builder'); // TO DO: change to import (ens-builder doesn't have types now
-import {parseDomain} from '@universal-login/commons';
+import {parseDomain} from '@unilogin/commons';
 
 class ENSDeployer {
-  private readonly deployer : Wallet;
-  private variables : Record<string, string>;
-  constructor(provider : providers.Provider, deployerPrivateKey : string) {
+  private readonly deployer: Wallet;
+  variables: Record<string, string>;
+  constructor(provider: providers.Provider, deployerPrivateKey: string) {
     this.deployer = new Wallet(deployerPrivateKey, provider);
     this.variables = {};
   }
 
-  save(filename : string) {
+  save(filename: string) {
     const content = Object.entries(this.variables)
       .map(([key, value]) => `${key}=${value}`)
       .join('\n');
@@ -24,7 +24,7 @@ class ENSDeployer {
     });
   }
 
-  async deployRegistrars(registrars : string[], tld = 'eth') {
+  async deployRegistrars(registrars: string[], tld = 'eth') {
     const builder = new ENSBuilder(this.deployer);
     await builder.bootstrap();
     this.variables.ENS_ADDRESS = builder.ens.address;
@@ -37,7 +37,7 @@ class ENSDeployer {
     }
   }
 
-  static async deploy(jsonRpcUrl : string, registrars : string[], tld = 'eth') {
+  static async deploy(jsonRpcUrl: string, registrars: string[], tld = 'eth') {
     const provider = new providers.JsonRpcProvider(jsonRpcUrl);
     const deployerPrivateKey = defaultAccounts[defaultAccounts.length - 1].secretKey;
     const deployer = new ENSDeployer(provider, deployerPrivateKey);

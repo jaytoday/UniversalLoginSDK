@@ -1,0 +1,115 @@
+.unilogin-theme-unilogin.unilogin-component-udashboard
+  .udashboard-ens
+    background: #E8F9FE
+    border-radius: 2px
+    line-height: 14px
+    color: #0F0C4A
+    padding: 7px 16px
+
+  .unilogin-component-modal
+    max-height: 700px
+    background: unset
+
+    @media only screen and (max-width: 600px)
+      max-height: unset
+
+  .unilogin-component-devices .devices-inner
+    min-height: unset
+
+  .udashboard-header
+    background: #fff
+
+  .udashboard-subheader
+    background: #fff
+
+  .udashboard-header-nav
+    & > :not(:last-child)
+      border-right: 1px solid #DDEBF1
+
+  .udashboard-tab
+    margin: unset
+    padding: 0 20px
+
+  .udashboard-tab.active > .udashboard-tab-text
+    color: #0F0C4A
+
+  .udashboard-tab-text
+    color: #7D7C9C
+
+  .udashboard-tab-funds.active .udashboard-tab-text::before
+    @media only screen and (max-width: 600px)
+      background: url('../../../assets/icons/dollar.svg') center no-repeat
+
+  .udashboard-tab-devices.active .udashboard-tab-text::before
+    @media only screen and (max-width: 600px)
+      background: url('../../../assets/ucomponent/devices.svg') center no-repeat
+
+  .udashboard-tab-backup.active .udashboard-tab-text::before
+    @media only screen and (max-width: 600px)
+      background: url('../../../assets/icons/backup.svg') center no-repeat
+
+  .active .udashboard-tab-text::before
+    filter: invert(51%) sepia(89%) saturate(954%) hue-rotate(204deg) brightness(100%) contrast(95%)
+
+  .new-notifications::after
+    background: linear-gradient(91.66deg, #0ADBC2 0%, #07D1D1 100%)
+
+  .udashboard-navbar
+    @media only screen and (max-width: 600px)
+      background-color: #fff
+      margin-bottom: 41px
+
+  input
+    @media only screen and (max-width: 600px)
+      font-size: 16px !important
+
+.unilogin-theme-unilogin .udashboard-content
+  height: calc(100% - 89px)
+  background: #fff
+  border-bottom-left-radius: 8px
+  border-bottom-right-radius: 8px
+
+  @media only screen and (max-height: 700px) and (orientation: landscape)
+    min-height: calc(100vh - 104px)
+
+  @media only screen and (max-height: 700px) and (max-width: 770px)
+    min-height: calc(100vh - 73px)
+
+  @media only screen and (max-height: 700px) and (max-width: 600px)
+    min-height: unset
+
+  @media only screen and (max-width: 770px)
+    height: calc(100% - 89px)
+
+  @media only screen and (max-width: 600px)
+    border-bottom-left-radius: unset
+    border-bottom-right-radius: unset
+
+  .universal-login-emojis
+    flex: 1
+
+  @media only screen and (max-width: 500px)
+    .universal-login-emojis
+
+      .approve-device
+        padding: 20px 0 0
+
+  #emojis
+    padding: 0 15px
+
+  .unilogin-component-top-up-body-crypto
+    min-height: unset
+
+  .unilogin-component-top-up-header
+    color: #fff
+
+  .unilogin-component-company-logo
+    display: none
+
+  .unilogin-component-onboarding-progress-wrapper
+    display: none
+
+.unilogin-theme-unilogin
+  .unilogin-component-modal-backdrop
+    @media only screen and (max-width: 600px)
+      background: radial-gradient(720.65px at 50% 0%, #0C0E57 0%, #14052C 100%)

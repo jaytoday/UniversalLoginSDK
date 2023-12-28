@@ -1,0 +1,44 @@
+.unilogin-theme-jarvis.unilogin-component-notice-wrapper
+  height: initial
+  background: none
+
+  @media only screen and (max-width: 768px)
+    margin-top: 10px
+
+.unilogin-theme-jarvis.unilogin-component-notice-wrapper::before
+  display: none
+
+.unilogin-theme-jarvis .unilogin-component-notice
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  text-align: center
+  font-weight: 700
+  font-size: 12px
+  line-height: 150%
+  color: #2EC9F5
+  background: rgba(46, 201, 245, 0.2)
+  margin: 10px
+  padding-left: unset
+  min-height: 41px
+
+  @media only screen and (max-width: 768px)
+    min-height: unset
+
+.unilogin-theme-jarvis .unilogin-component-notice::before
+  display: none
+
+.welcome-box
+  .unilogin-theme-jarvis.unilogin-component-notice-wrapper
+    padding: 0
+
+.unilogin-theme-jarvis
+  .unilogin-component-notice-wrapper
+    display: none
+
+.unilogin-theme-jarvis .unilogin-component-notice-link
+  color: #2EC9F5
+  text-decoration: underline

@@ -1,39 +1,66 @@
+import {join} from 'path';
 import React from 'react';
-import Sidebar from '../common/Sidebar';
-import UserDropdown from '../common/UserDropdown';
-import Modal from '../Modals/Modal';
-import Balance from './Balance';
-import { useServices } from '../../hooks';
+import {Route, Switch, useHistory} from 'react-router';
+import {Funds, Devices, BackupCodes, Notice, TopUp, useAsyncEffect, useThemeClassFor} from '@unilogin/react';
+import {Header} from './Header';
+import {useServices} from '../../hooks';
+import ModalTransfer from '../Modals/Transfer/ModalTransfer';
 
 const HomeScreen = () => {
-  const {modalService} = useServices();
+  const basePath = '/dashboard';
+  const {walletService, walletPresenter} = useServices();
+
+  const deployedWallet = walletService.getDeployedWallet();
+  const notice = deployedWallet.sdk.getNotice();
+
+  useAsyncEffect(() => deployedWallet.subscribeDisconnected(() => walletService.disconnect()), []);
+
+  const history = useHistory();
+
   return (
     <>
-      <div className="dashboard">
-        <Sidebar />
+      <div className={`dashboard ${useThemeClassFor()}`}>
+        <Header />
         <div className="dashboard-content">
-          <UserDropdown/>
-          <div className="home-screen-column">
-            <div className="dashboard-buttons-row">
-              <button
-                onClick={() => modalService.showModal('request')}
-                className="btn btn-primary btn-add"
-              >
-                <span className="btn-add-text">Top-up</span>
-              </button>
-              <button
-                id="transferFunds"
-                onClick={() => modalService.showModal('transfer')}
-                className="btn btn-secondary btn-send"
-              >
-                <span className="btn-send-text">Send</span>
-              </button>
+          <div className="dashboard-content-box">
+            <Notice message={notice} />
+            <div className={useThemeClassFor()}>
+              <p className="dashboard-ens-name">{walletPresenter.getName()}</p>
+              <Switch>
+                <Route path={basePath} exact>
+                  <Funds
+                    walletService={walletService}
+                    onTopUpClick={() => history.push(join(basePath, 'topUp'))}
+                    onSendClick={() => history.push(join(basePath, 'transfer'))}
+                    onDeviceMessageClick={() => history.push(join(basePath, 'devices', 'approveDevice'))}
+                  />
+                </Route>
+                <Route path={join(basePath, 'devices')}>
+                  <Devices
+                    walletService={walletService}
+                    onAccountDisconnected={() => history.push('/welcome')}
+                    basePath={join(basePath, 'devices')}
+                  />
+                </Route>
+                <Route path={join(basePath, 'backup')}>
+                  <BackupCodes deployedWallet={deployedWallet} />
+                </Route>
+                <Route path={join(basePath, 'topUp')}>
+                  <TopUp
+                    walletService={walletService}
+                    logoColor="black"
+                    hideModal={() => history.push('/dashboard')}
+                  />
+                </Route>
+                <Route
+                  path={join(basePath, 'transfer')}
+                  render={() => <ModalTransfer basePath={join(basePath, 'transfer')} />}
+                />
+              </Switch>
             </div>
-            <Balance className="dashboard-balance"/>
           </div>
         </div>
       </div>
-      <Modal />
     </>
   );
 };

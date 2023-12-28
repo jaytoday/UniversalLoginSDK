@@ -1,64 +1,64 @@
-import {providers, Wallet, utils, Contract} from 'ethers';
-import {deployContract} from 'ethereum-waffle';
-import WalletMaster from '../../build/WalletMaster.json';
-import {withENS, createKeyPair} from '@universal-login/commons';
-import {deployENS} from '@universal-login/commons/testutils';
-import {deployFactory, createFutureDeploymentWithRefund, deployWalletMasterWithRefund} from '../../lib';
-import MockToken from '../../build/MockToken.json';
-
+import {Contract, providers, utils, Wallet} from 'ethers';
+import {deployContract, MockProvider} from 'ethereum-waffle';
+import {createKeyPair, ETHER_NATIVE_TOKEN, withENS} from '@unilogin/commons';
+import {deployENS} from '@unilogin/commons/testutils';
+import {createFutureDeploymentWithENS} from '../helpers/FutureDeployment';
+import {deployFactory, deployWalletContract} from '../../src';
+import MockToken from '../../dist/contracts/MockToken.json';
+import {WalletContractInterface} from '../helpers/interfaces';
 
 export async function setupEnsAndMaster(deployer: Wallet) {
   const {ensAddress, resolverAddress, registrarAddress} = await deployENS(deployer);
-  const {factoryContract, walletMaster} = await setupMasterWithRefundAndFactory(deployer);
+  const {factoryContract, walletContract} = await setupMasterWithRefundAndFactory(deployer);
   const providerWithENS = withENS(deployer.provider as providers.Web3Provider, ensAddress);
   return {
     ensDomainData: {
       ensAddress,
       registrarAddress,
-      resolverAddress
+      resolverAddress,
     },
-    walletMaster,
-    provider: providerWithENS,
+    walletContract,
+    providerWithENS,
     deployer,
-    factoryContract
+    factoryContract,
   };
 }
 
 export async function setupMasterWithRefundAndFactory(deployer: Wallet) {
-  const walletMaster = await deployWalletMasterWithRefund(deployer);
-  const factoryContract = await deployFactory(deployer, walletMaster.address);
+  const walletContract = await deployWalletContract(deployer);
+  const factoryContract = await deployFactory(deployer, walletContract.address);
   return {
-    walletMaster,
-    factoryContract
+    walletContract,
+    factoryContract,
   };
 }
 
 export async function setupWalletContract(deployer: Wallet) {
-  const {ensDomainData, walletMaster, provider, factoryContract} = await setupEnsAndMaster(deployer);
+  const {ensDomainData, walletContract, providerWithENS, factoryContract} = await setupEnsAndMaster(deployer);
   const keyPair = createKeyPair();
-  const {initializeData, futureAddress} = await createFutureDeploymentWithRefund({keyPair, walletMasterAddress: walletMaster.address, gasPrice: '1000000', ensDomainData, factoryContract, relayerAddress: deployer.address});
+  const {initializeData, futureAddress, signature} = createFutureDeploymentWithENS({keyPair, walletContractAddress: walletContract.address, gasPrice: '1000000', ensDomainData, factoryContract, gasToken: ETHER_NATIVE_TOKEN.address});
   await deployer.sendTransaction({to: futureAddress, value: utils.parseEther('10.0')});
-  await factoryContract.createContract(keyPair.publicKey, initializeData);
-  const walletContract = new Contract(futureAddress, WalletMaster.interface, provider);
+  await factoryContract.createContract(keyPair.publicKey, initializeData, signature);
+  const proxyWallet = new Contract(futureAddress, WalletContractInterface, providerWithENS);
   return {
-    walletContract,
+    proxyWallet,
     keyPair,
     deployer,
-    provider
+    providerWithENS,
   };
 }
 
 export async function walletContractWithTokenAndEther(deployer: Wallet) {
-  const {provider, walletContract, keyPair} = await setupWalletContract(deployer);
+  const {providerWithENS, proxyWallet, keyPair} = await setupWalletContract(deployer);
   const mockToken = await deployContract(deployer, MockToken);
-  await mockToken.transfer(walletContract.address, utils.parseEther('1.0'));
-  await deployer.sendTransaction({to: walletContract.address, value: utils.parseEther('1.0')});
+  await mockToken.transfer(proxyWallet.address, utils.parseEther('1.0'));
+  await deployer.sendTransaction({to: proxyWallet.address, value: utils.parseEther('1.0')});
   return {
-    provider,
-    walletContract,
+    providerWithENS,
+    proxyWallet,
     keyPair,
     deployer,
-    mockToken
+    mockToken,
   };
 }
 
@@ -66,8 +66,8 @@ export function walletContractFixture(givenProvider: providers.Provider, [wallet
   return setupWalletContract(wallet);
 }
 
-export function ensAndMasterFixture(givenProvider: providers.Provider, [deployer]: Wallet[]) {
-  return setupEnsAndMaster(deployer);
+export async function ensAndMasterFixture(provider: MockProvider, [deployer]: Wallet[]) {
+  return {...await setupEnsAndMaster(deployer), provider};
 }
 
 export function walletContractWithFundsFixture(givenProvider: providers.Provider, [wallet]: Wallet[]) {

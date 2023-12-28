@@ -1,10 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "build"
+    "allowJs": true,
+    "jsx": "react",
+    "outDir": "dist",
+    "typeRoots": ["shims"]
   },
   "include": [
-    "lib",
+    "src",
     "test"
   ]
 }

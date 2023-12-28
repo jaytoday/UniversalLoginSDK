@@ -1,16 +1,12 @@
-[![CircleCI](https://circleci.com/gh/UniversalLogin/UniversalLoginSDK/tree/master.svg?style=svg)](https://circleci.com/gh/UniversalLogin/UniversalLoginSDK/tree/master)
+[![UniLogin](https://circleci.com/gh/UniLogin/UniLogin/tree/master.svg?style=svg)](https://circleci.com/gh/UniLogin/UniLogin/tree/master)
 
-![Universal-Login](./docs/source/static/logo.png)
+![UniLogin](./docs/source/static/logo.png)
 
 # Ethereum Universal Login
 
-Universal Login is a design pattern for storing funds and connecting to Ethereum applications, aiming to simplify on-boarding of new users.
+Universal Login is a tool for storing funds and connecting to Ethereum applications, aiming to simplify on-boarding of new users.
 
 This repository is a monorepo including the sdk, relayer, smart contracts and examples. Each public sub-package is independently published to NPM.
-
-## Documentation
-
-Documentation is available at [universalloginsdk.readthedocs.io](https://universalloginsdk.readthedocs.io/en/latest/index.html)
 
 ## Disclaimer
 
@@ -27,14 +23,28 @@ Technically Universal Login utilizes four major concepts:
 Packages maintained with this monorepo are listed below.
 
 - [Contracts](https://github.com/UniversalLogin/UniversalLoginSDK/tree/master/universal-login-contracts) - all contracts used in this project
-- [Relayer](https://universalloginsdk.readthedocs.io/en/latest/relayer.html) - node.js server application that allows interacting with blockchain without a wallet
-- [SDK](https://universalloginsdk.readthedocs.io/en/latest/sdk.html) - a JS library, that helps to communicate with relayer
-- [Example](https://github.com/UniversalLogin/UniversalLoginSDK/blob/master/universal-login-example/README.md) - example application written in React
+- Relayer - node.js server application that allows interacting with blockchain without a wallet
+- SDK - a JS library, that helps to communicate with relayer
 - OPS - scripts for development and deployment
+- React - library of React components
+- Web3 - web3 provider connected allowing to use Universal Login without the need for modifying existing applications
+- Wallet - Jarvis web wallet that used Universal Login
+- Commons - standard functions and data structures used throughout the projects
 
-## Formal Verification
-Our goal is to formally verify functions declared in ethereum smart contracts used in our project.
-Please, see [Formal Verification README](https://github.com/UniversalLogin/UniversalLoginSDK/blob/master/formal-verification/README.md) for details and instructions.
+## Testing environment:
+
+### Ropsten:
+- Domains: `poppularapp.test`, `my-login.test`, `universal-login.test`
+- Relayer url: `https://relayer-ropsten.universallogin.io`
+- Jarvis Wallet (web wallet): [wallet-ropsten.universallogin.io](https://wallet-ropsten.universallogin.io)
+
+### Kovan:
+- Domain: `poppularapp.test`
+- Relayer url: `https://relayer-kovan.universallogin.io`
+
+### Rinkeby:
+- Domain: `poppularapp.test`
+- Relayer url: `https://relayer-rinkeby.universallogin.io`
 
 ## Contributing
 
@@ -83,8 +93,6 @@ You can run all of above scripts (`install`, `build`, `test`, `lint`, `clean`) f
 
 To emulate the full CI process:
 ```sh
-yarn clean
-yarn
 yarn ci
 ```
 
@@ -94,9 +102,8 @@ cd docs
 make html
 ```
 
-Documentation will be compile to `docs/build/html`.
+Documentation will be compiled to `docs/build/html`.
 
 ## License
 
-Universal Login SDK is released under the [MIT License](https://opensource.org/licenses/MIT) except for smart contracts in [common](https://github.com/UniversalLogin/UniversalLoginSDK/tree/master/universal-login-contracts/contracts/common) and [proxies](https://github.com/UniversalLogin/UniversalLoginSDK/tree/master/universal-login-contracts/contracts/proxies) released under the [LGPL-v3 License](https://opensource.org/licenses/lgpl-3.0.html).
-
+Universal Login SDK is released under the [MIT License](https://opensource.org/licenses/MIT).
